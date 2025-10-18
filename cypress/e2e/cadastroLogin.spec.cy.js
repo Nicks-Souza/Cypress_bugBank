@@ -14,11 +14,12 @@ let data
   })
 
 it('atraves do cadastro da aplicacao com sucesso, depois página de login com sucesso e estando com saldo', () => {
-    
+    var pass = faker.internet.password();
+
     cy.new_user_com_saldo(
     faker.internet.email(),
     faker.person.fullName(), 
-    'Teste@1234',
+    pass,
     )
     cy.readFile('cypress/fixtures/usuarioComSaldo.json').then((data) => {
      cy.login(data.email, data.password)
@@ -27,11 +28,13 @@ it('atraves do cadastro da aplicacao com sucesso, depois página de login com su
       .should('exist').and('be.visible').and('contain.text', 'R$');
 })
 it('atraves do cadastro da aplicacao com sucesso, depois página de login com sucesso e estando sem saldo', () => {
-    
+    var pass = faker.internet.password();
+
+
     cy.new_user_sem_saldo(
     faker.internet.email(),
     faker.person.fullName(), 
-    'Teste@1234',
+    pass,
     )
     cy.readFile('cypress/fixtures/usuarioSemSaldo.json').then((data) => {
     cy.login(data.email, data.password);
@@ -46,8 +49,8 @@ describe('Usuarios realizam o cadastro com senha e confirmação senha diferente
     cy.new_user_com_senha_diferente(
       faker.internet.email(),
       faker.person.fullName(),
-      'Teste@1234',
-      'Teste@12345'
+      faker.internet.password(),
+      faker.internet.password(),
     )
   })
 })
