@@ -26,43 +26,71 @@
 
 import url from './url'
 import login from '../selectors/login.sel.cy'
-import  cadastro  from '../selectors/cadastro.sel.cy';
-require('cypress-xpath');
+import cadastro from '../selectors/cadastro.sel.cy'
+require('cypress-xpath')
 
 Cypress.Commands.add('login', (email, password) => {
-    cy.visit(url.login)
-    cy.xpath(login.email).first().type(email)
-    cy.xpath(login.password).first().type(password)
-    cy.xpath(login.buttonLogin).first().click()
+  cy.visit(url.login)
+  cy.xpath(login.email).first().type(email)
+  cy.xpath(login.password).first().type(password)
+  cy.xpath(login.buttonLogin).first().click()
 })
 
 
 
-Cypress.Commands.add('new_user_com_saldo', (email, name, password)=>{
-    cy.visit(url.cadastro)
-    cy.get(cadastro["pagina-cadastro"].buttonCadastro1).click()
-    cy.xpath(cadastro["pagina-cadastro"].email).click({force: true}).type(email)
-    cy.xpath(cadastro["pagina-cadastro"].name).click({force: true}).type(name)
-    cy.xpath(cadastro["pagina-cadastro"].password).click({force: true}).type(password)
-    cy.xpath(cadastro["pagina-cadastro"].confirmPassword).click({force: true}).type(password)
-    cy.xpath(cadastro["pagina-cadastro"].saldo).click({force: true})
-    cy.xpath(cadastro["pagina-cadastro"].submitButton).click({force: true})
-    cy.xpath(cadastro["pagina-cadastro"].panel_success).should('be.visible')
-    cy.writeFile('cypress/fixtures/usuarioComSaldo.json', {email, password})
+function extrairConta(textoModal) {
+  const regex = /conta\s+(\d+)-(\d+)/i
+  const match = textoModal.match(regex)
+
+  if (match) {
+    return { conta: match[1], digito: match[2] }
+  }
+}
+
+Cypress.Commands.add('new_user_com_saldo', (email, name, password) => {
+  cy.visit(url.cadastro)
+  cy.get(cadastro['pagina-cadastro'].buttonCadastro1).click()
+  cy.xpath(cadastro['pagina-cadastro'].email).click({ force: true }).type(email)
+  cy.xpath(cadastro['pagina-cadastro'].name).click({ force: true }).type(name)
+  cy.xpath(cadastro['pagina-cadastro'].password).click({ force: true }).type(password)
+  cy.xpath(cadastro['pagina-cadastro'].confirmPassword).click({ force: true }).type(password)
+  cy.xpath(cadastro['pagina-cadastro'].saldo).click({ force: true })
+  cy.xpath(cadastro['pagina-cadastro'].submitButton).click({ force: true })
+  cy.xpath(cadastro['pagina-cadastro'].panel_success)
+    .should('be.visible')
+    .invoke('text')
+    .then((textoModal) => {
+      const { conta, digito } = extrairConta(textoModal)
+      cy.writeFile('cypress/fixtures/usuarioComSaldo.json', {
+        email,
+        password,
+        conta,
+        digito,
+      })
+    })
 })
 
-Cypress.Commands.add('new_user_sem_saldo', (email, name, password)=>{
-    cy.visit(url.cadastro)
-    cy.get(cadastro["pagina-cadastro"].buttonCadastro1).click()
-    cy.xpath(cadastro["pagina-cadastro"].email).click({force: true}).type(email)
-    cy.xpath(cadastro["pagina-cadastro"].name).click({force: true}).type(name)
-    cy.xpath(cadastro["pagina-cadastro"].password).click({force: true}).type(password)
-    cy.xpath(cadastro["pagina-cadastro"].confirmPassword).click({force: true}).type(password)
-    cy.xpath(cadastro["pagina-cadastro"].submitButton).click({force: true})
-    cy.xpath(cadastro["pagina-cadastro"].panel_success).should('be.visible')
-    cy.writeFile('cypress/fixtures/usuarioSemSaldo.json', {email, password})
-})  
-
+Cypress.Commands.add('new_user_sem_saldo', (email, name, password) => {
+  cy.visit(url.cadastro)
+  cy.get(cadastro['pagina-cadastro'].buttonCadastro1).click()
+  cy.xpath(cadastro['pagina-cadastro'].email).click({ force: true }).type(email)
+  cy.xpath(cadastro['pagina-cadastro'].name).click({ force: true }).type(name)
+  cy.xpath(cadastro['pagina-cadastro'].password).click({ force: true }).type(password)
+  cy.xpath(cadastro['pagina-cadastro'].confirmPassword).click({ force: true }).type(password)
+  cy.xpath(cadastro['pagina-cadastro'].submitButton).click({ force: true })
+  cy.xpath(cadastro['pagina-cadastro'].panel_success)
+    .should('be.visible')
+    .invoke('text')
+    .then((textoModal) => {
+      const { conta, digito } = extrairConta(textoModal)
+      cy.writeFile('cypress/fixtures/usuarioSemSaldo.json', {
+        email,
+        password,
+        conta,
+        digito,
+      })
+    })
+})
 Cypress.Commands.add('new_user_com_senha_diferente', (email, name, password, password1)=>{
     cy.visit(url.cadastro)
     cy.get(cadastro["pagina-cadastro"].buttonCadastro1).click()
