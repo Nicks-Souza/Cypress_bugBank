@@ -36,12 +36,10 @@ O ciclo completo de QA abrange:
 ## ⚙️ Ferramentas Utilizadas
 | Categoria | Ferramenta | Finalidade |
 |------------|-------------|------------|
-| Gerenciamento de Projeto | Jira / Trello / Notion | Planejamento e acompanhamento de testes |
+| Gerenciamento de Projeto | Jira / Google Sheets  | Planejamento e acompanhamento de testes |
 | Automação de Testes | Cypress | Testes end-to-end (UI e fluxo funcional) |
-| Testes de API | Postman | Validação de endpoints e respostas HTTP |
 | Controle de Versão | Git / GitHub | Versionamento de código e documentação |
-| Banco de Dados | MySQL / DBeaver | Validação de dados e queries de teste |
-| Comunicação | Slack / Discord | Colaboração da equipe |
+| Comunicação |  Discord | Colaboração da equipe |
 
 ---
 
@@ -60,20 +58,22 @@ O ciclo completo de QA abrange:
 ---
 
 ## 📊 Métricas de Teste
-- **Total de casos testados:** 13  
+- **Total de casos testados:** 18  
 - **Casos aprovados:** 13  
-- **Casos com falha:** 0  
+- **Casos com falha:** 3
+- **Casos em desenvolvimento(plataforma não estava disponível):** 2
 - **Cobertura de funcionalidades principais:** 100%  
-- **Tempo médio de execução dos testes automatizados:** 25s por cenário
+
 
 ---
 
 ## 👥 Squad 3 – Regressores Anônimos
-- Antonio Cristiano de Aguiar Lima  
+- Alan Oliveira
+- Cristiano de Aguiar Lima  
 - Laura Costa  
 - Luan Silva  
 - Nicolas Ferreira  
-- Vanessa Souza
+  
 
 ---
 
@@ -84,7 +84,7 @@ O ciclo completo de QA abrange:
 ---
 
 ## 🗓️ Data de Entrega
-14 de outubro de 2025
+25 de outubro de 2025
 
 ---
 
