@@ -72,7 +72,7 @@ O ciclo completo de QA abrange:
 - Cristiano de Aguiar Lima  
 - Laura Costa  
 - Luan Silva  
-- Nicolas Ferreira  
+- Nicolas de Souza Custódio 
   
 
 ---
